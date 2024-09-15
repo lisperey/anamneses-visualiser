@@ -17,7 +17,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
-import SaveIcon from "@mui/icons-material/Save";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Menu, MenuItem } from "@mui/material";
@@ -78,11 +77,7 @@ const menuItems = [
   {
     label: "Home",
     icon: <HomeIcon />,
-    path: "/",
-  },
-  {
-    label: "Logout",
-    icon: <SaveIcon />,
+    path: "/home",
   },
 ];
 
@@ -95,6 +90,7 @@ export default function PersistentDrawerLeft() {
   const pathLoad = locationSplit.length > 2 ? `/${locationSplit[1]}` : location.pathname;
   const [clickedItem, setClickedItem] = React.useState<string>(pathLoad);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
   const openx = Boolean(anchorEl);
 
   const handleDrawerOpen = () => {
@@ -118,6 +114,10 @@ export default function PersistentDrawerLeft() {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    navigate('/login')
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -132,40 +132,42 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Visualizador de anamneses
-          </Typography>
-          <div>
-            <IconButton
-              color="inherit"
-              aria-label="Abrir Menu Perfil"
-              onClick={handleClickMenuAccountIcon}
-              edge="start"
-              sx={{ ml: 1 }}
-            >
-              <AccountCircleIcon />
-            </IconButton>
-            <Menu
-              id="demo-positioned-menu"
-              aria-labelledby="demo-positioned-button"
-              anchorEl={anchorEl}
-              open={openx}
-              onClose={handleCloseMenuAccountIcon}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-            >
-              <MenuItem onClick={() => { }} sx={{ color: "red", width: "130px", display: "flex", justifyContent: "center" }}>
-                Sair
-                <LogoutIcon sx={{ color: "red", width: "15px", mx: 1 }} fontSize="small" />
-              </MenuItem>
-            </Menu>
-          </div>
+          <Box sx={{display:"flex", justifyContent: "space-between", alignItems:"center", width:"100%"}}>
+            <Typography variant="h6" noWrap component="div">
+              Visualizador de Anamneses
+            </Typography>
+            <Box>
+              <IconButton
+                color="inherit"
+                aria-label="Abrir Menu Perfil"
+                onClick={handleClickMenuAccountIcon}
+                edge="start"
+                sx={{ ml: 1 }}
+              >
+                <AccountCircleIcon />
+              </IconButton>
+              <Menu
+                id="demo-positioned-menu"
+                aria-labelledby="demo-positioned-button"
+                anchorEl={anchorEl}
+                open={openx}
+                onClose={handleCloseMenuAccountIcon}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+              >
+                <MenuItem onClick={handleLogout} sx={{ color: "red", width: "130px", display: "flex", justifyContent: "center" }}>
+                  Sair
+                  <LogoutIcon sx={{ color: "red", width: "15px", mx: 1 }} fontSize="small" />
+                </MenuItem>
+              </Menu>
+            </Box>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer

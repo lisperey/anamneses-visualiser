@@ -6,6 +6,7 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useNavigate } from "react-router-dom";
 
 
 function Copyright(props: any) {
@@ -22,6 +23,7 @@ function Copyright(props: any) {
 }
 
 export default function SignIn() {
+    const navigate = useNavigate();
     return (
         <Box
             sx={{
@@ -70,7 +72,7 @@ export default function SignIn() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            onClick={() => { }}
+                            onClick={() => { navigate(`/home`)}}
                         >
                             Entrar
                         </Button>
