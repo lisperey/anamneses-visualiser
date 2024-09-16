@@ -117,7 +117,6 @@ export default function PersistentDrawerLeft() {
   const handleLogout = () => {
     navigate('/login')
   };
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
