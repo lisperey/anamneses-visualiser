@@ -7,6 +7,10 @@ import { LoginDto } from './login.dto';
 export class LoginRepository {
   constructor(@InjectConnection() private readonly knex: Knex) {}
   async getDoctor(body: LoginDto): Promise<any> {
-    return;
+    const token = await this.knex('anm_anamnese')
+      .select('dentista as token')
+      .where('dentista', body.username)
+      .first();
+    return token;
   }
 }
