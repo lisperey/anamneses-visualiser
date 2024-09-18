@@ -21,6 +21,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Menu, MenuItem } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useAuth } from "../../providers/AuthContext";
 
 const drawerWidth = 240;
 
@@ -79,6 +80,11 @@ const menuItems = [
     icon: <HomeIcon />,
     path: "/home",
   },
+  {
+    label: "Dashboard",
+    icon: <HomeIcon />,
+    path: "/dashboard",
+  },
 ];
 
 export default function PersistentDrawerLeft() {
@@ -90,6 +96,7 @@ export default function PersistentDrawerLeft() {
   const pathLoad = locationSplit.length > 2 ? `/${locationSplit[1]}` : location.pathname;
   const [clickedItem, setClickedItem] = React.useState<string>(pathLoad);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const { setToken } = useAuth();
 
   const openx = Boolean(anchorEl);
 
@@ -115,7 +122,8 @@ export default function PersistentDrawerLeft() {
   };
 
   const handleLogout = () => {
-    navigate('/login')
+    setToken('');
+    navigate('/login');
   };
   return (
     <Box sx={{ display: "flex" }}>

@@ -10,6 +10,7 @@ import Visualizer from "../../components/Visualizer";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { URL_API } from "../../../config";
+import { useAuth } from "../../providers/AuthContext";
 
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
   const [selectedRow, setSelectedRow] = useState({paciente: ''});
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => setOpenModal(false);
+  const { token } = useAuth();
 
   const anamneses = useQuery(
     ["anamneses", selectedRow?.paciente],
@@ -27,7 +29,7 @@ export default function Home() {
       return axios.get(`${URL_API}/anamneses/${selectedRow.paciente}`).then((response) => response.data);
     },
     {
-      enabled: !!selectedRow,
+      enabled: !!selectedRow.paciente,
       retry: 3,
       refetchOnWindowFocus: true,
     }
@@ -36,7 +38,7 @@ export default function Home() {
   const { data, isLoading, error } = useQuery(
     "pacientes",
     () => {
-      return axios.get(`${URL_API}/anamneses/pacientes/8fa4d69c796346ec24346e597806f352`).then((response) => response.data);
+      return axios.get(`${URL_API}/anamneses/pacientes/${token}`).then((response) => response.data);
     },
     {
       retry: 3,
