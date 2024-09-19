@@ -2,25 +2,20 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../providers/AuthContext";
 
-const Inactivity = ({ element }: { element: JSX.Element })  => {
-  const { setToken } = useAuth(); 
+const Inactivity = ({ element }: { element: JSX.Element }) => {
+  const { setToken } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setToken('');
-    navigate('/login'); 
+    navigate('/login');
   };
-
-  const handleBeforeUnload = () => {
-    handleLogout();
-  };
-  window.addEventListener('beforeunload', handleBeforeUnload);
-
+  
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     const resetTimer = () => {
       if (timeoutId) {
-        clearTimeout(timeoutId); 
+        clearTimeout(timeoutId);
       }
       timeoutId = setTimeout(() => {
         handleLogout();

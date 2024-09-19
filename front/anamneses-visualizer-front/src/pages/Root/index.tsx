@@ -78,7 +78,7 @@ const menuItems = [
   {
     label: "Home",
     icon: <HomeIcon />,
-    path: "/home",
+    path: "/",
   },
   {
     label: "Dashboard",
@@ -205,7 +205,7 @@ export default function PersistentDrawerLeft() {
             <ListItem key={label} disablePadding onClick={() => handleClick(path)}
               style={{ backgroundColor: clickedItem === path ? "#e0e0e0" : "transparent" }}
             >
-              <ListItemButton onClick={console.log}>
+              <ListItemButton>
                 <ListItemIcon>{icon}</ListItemIcon>
                 <ListItemText primary={label} />
               </ListItemButton>
