@@ -9,7 +9,7 @@ export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
   @Post('')
-  async get(@Body() body: LoginDto) {
+  async login(@Body() body: LoginDto) {
     return await this.loginService.getTokenDoctor(body);
   }
 

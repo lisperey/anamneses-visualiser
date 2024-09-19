@@ -21,8 +21,13 @@ export class AnamnesesRepository {
 
   async getListPaciente(doctorToken: string): Promise<any> {
     const anamneses: any = await this.knex('anm_anamnese')
-      .select('id', 'paciente', 'data')
-      .where('dentista', doctorToken);
+      .select(
+        'id',
+        'paciente',
+        this.knex.raw("DATE_FORMAT(FROM_UNIXTIME(data), '%d/%m/%Y') AS data"),
+      )
+      .where('dentista', doctorToken)
+      .orderByRaw('FROM_UNIXTIME(data)');
     return anamneses;
   }
 }

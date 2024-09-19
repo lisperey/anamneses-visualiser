@@ -1,4 +1,4 @@
-import { CircularProgress, Alert } from "@mui/material";
+import { CircularProgress, Alert, Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import {
   DataGrid,
@@ -11,13 +11,14 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { URL_API } from "../../../config";
 import { useAuth } from "../../providers/AuthContext";
+import { ResponsiveContainer } from "recharts";
 
 
 export default function Home() {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
-  const [selectedRow, setSelectedRow] = useState({paciente: ''});
+  const [selectedRow, setSelectedRow] = useState({ paciente: '' });
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => setOpenModal(false);
   const { token } = useAuth();
@@ -64,6 +65,7 @@ export default function Home() {
     {
       field: "id",
       headerName: "ID",
+      // width: 0.1,
       flex: 0.1,
       align: 'center',
       headerAlign: 'center'
@@ -71,6 +73,7 @@ export default function Home() {
     {
       field: "paciente",
       headerName: "Nome do Paciente",
+      // width: 0.1,
       flex: 0.1,
       align: 'center',
       headerAlign: 'center'
@@ -78,13 +81,10 @@ export default function Home() {
     {
       field: "data",
       headerName: "Data de cadastro",
+      // width: 0.1,
       flex: 0.1,
       align: 'center',
       headerAlign: 'center',
-      renderCell: (params: GridRenderCellParams<any, string>) => {
-        const date = new Date(params?.value??0);
-        return date.toLocaleDateString("pt-BR")
-        },
     },
   ];
 
@@ -120,33 +120,33 @@ export default function Home() {
   };
 
   return (
-    <div style={{ height: '84vh', width: '100%' }}>
-      <DataGrid
-        disableRowSelectionOnClick
-        disableColumnFilter
-        disableColumnSelector
-        disableDensitySelector
-        editMode="row"
-        rows={data?.data ?? []}
-        rowModesModel={rowModesModel}
-        columns={adjustedColumns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
-          },
-        }}
-        pageSizeOptions={[10, 25, 50, 100]}
-        slotProps={{
-          toolbar: { setRowModesModel, showQuickFilter: true },
-        }}
-        localeText={{
-          toolbarQuickFilterPlaceholder: "Pesquisar",
-        }}
-        autoHeight
-        style={{ width: "100%" }}
-        onRowClick={handleRowClick}
-      />
+    <Box style={{ height: 400, width: "95%" }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <DataGrid
+          disableRowSelectionOnClick
+          disableColumnFilter
+          disableColumnSelector
+          disableDensitySelector
+          editMode="row"
+          rows={data?.data ?? []}
+          rowModesModel={rowModesModel}
+          columns={adjustedColumns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+          }}
+          pageSizeOptions={[10, 25, 50, 100]}
+          slotProps={{
+            toolbar: { setRowModesModel, showQuickFilter: true },
+          }}
+          localeText={{
+            toolbarQuickFilterPlaceholder: "Pesquisar",
+          }}
+          onRowClick={handleRowClick}
+        />
+      </ResponsiveContainer>
       <Visualizer open={openModal} data={anamneses?.data?.data} handleClose={handleClose} paciente={selectedRow.paciente} />
-    </div>
+    </Box>
   );
 };

@@ -78,7 +78,7 @@ const menuItems = [
   {
     label: "Home",
     icon: <HomeIcon />,
-    path: "/home",
+    path: "/",
   },
   {
     label: "Dashboard",

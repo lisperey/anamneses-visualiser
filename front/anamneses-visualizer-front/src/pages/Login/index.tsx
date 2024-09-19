@@ -46,7 +46,7 @@ export default function SignIn() {
             onSuccess: (res) => {
                 if(!res.error){
                     setToken(res?.data?.token)
-                    navigate(`/home`)
+                    navigate(`/`)
                 }
                 else{
                     setShowAlert(true);

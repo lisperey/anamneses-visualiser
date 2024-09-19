@@ -29,7 +29,6 @@ const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
         </div>
       )
     }
-    navigate("/home");
     return element;
   };
 

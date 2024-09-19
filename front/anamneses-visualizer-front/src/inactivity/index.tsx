@@ -8,13 +8,23 @@ const Inactivity = ({ element }: { element: JSX.Element })  => {
 
   const handleLogout = () => {
     setToken('');
-    navigate('/login'); 
+    navigate('/login');
+    localStorage.removeItem('closing');
   };
-
-  const handleBeforeUnload = () => {
-    handleLogout();
-  };
+  function handleBeforeUnload() {
+    if (sessionStorage.getItem('isClosing') === 'true') {
+      handleLogout()
+    }
+  }
+  
+  function markAsClosing() {
+    sessionStorage.setItem('isClosing', 'true');
+  }
   window.addEventListener('beforeunload', handleBeforeUnload);
+  window.addEventListener('unload', markAsClosing);
+  window.addEventListener('load', () => {
+    sessionStorage.removeItem('isClosing');
+  });
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;

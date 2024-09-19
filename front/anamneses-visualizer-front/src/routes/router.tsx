@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import Home from "../pages/Home";
 import ProtectedRoute from "../protected";
 import Inactivity from "../inactivity";
+import Dashboard from "../pages/Dashboard";
 
 
   
@@ -14,8 +15,13 @@ export const router = createBrowserRouter([
         children: [
            
             {
-                path: "/home",
+                path: "/",
                 element: <Home />,
+               
+            },
+            {
+                path: "dashboard",
+                element: <Dashboard />,
                
             },
             
